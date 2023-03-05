@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>MainPage</title>
+</head>
+<body>
+
+<h2 style="text-align:center">Главная страница</h2>
+    <p style="text-align:center" th:text="'Ваш Логин: ' + ${userInfo.username}">value</p>
+    <p style="text-align:center" th:text="'Ваше ФИО:' + ${userInfo.fio}">value</p>
+    <p style="text-align:center" th:text="'Ваша Почта:  ' + ${userInfo.email}">value</p>
+    <p style="text-align:center" th:text="'Роль в системе:  ' + ${userInfo.role}">value</p>
+    <p th:if="${userInfo.getSubscriptionType()}" style="text-align:center"
+       th:text="'Текущая подписка:  ' + ${userInfo.subscriptionType.name}">value
+    </p>
+
+
+    <form style="text-align:center" sec:authorize="hasRole('USER')" th:unless="${userInfo.getSubscriptionType()}"
+          th:action="@{/library/subscriptions/all}" method="get">
+        <input type="submit" value="Приобрести читательский билет =>">
+    </form>
+
+    <form style="text-align:center" sec:authorize="hasRole('ADMIN')" th:action="@{/library/users/all}" method="get">
+        <input type="submit" value="Список пользователей системы =>">
+    </form>
+
+    <form style="text-align:center" sec:authorize="hasRole('ADMIN')" th:action="@{/library/subscriptions/all}" method="get">
+        <input type="submit" value="Список читательских билетов =>">
+    </form>
+</body>
+</html>

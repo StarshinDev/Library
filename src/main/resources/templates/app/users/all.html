@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<h2 style="text-align:center">Список пользователей приложения "Онлайн библиотека"</h2>
+
+<table border="2" cellpadding="3" cellspacing="3" dir="ltr"
+       style="border: 2px solid #947059; margin: auto; height:20px; width:800px">
+    <tr>
+        <th>№</th>
+        <th>Логин</th>
+        <th>ФИО</th>
+        <th>Почта</th>
+    </tr>
+
+    <tr th:each="user, state : ${users}" style="color: #614a3a">
+        <td th:utext="${state.count}">null</td>
+        <td th:utext="${user.username}">null</td>
+        <td th:utext="${user.fio}">null</td>
+        <td th:utext="${user.email}">null</td>
+    </tr>
+</table><br>
+
+<form method="get" style="text-align:center" th:action="@{/library/users/all}">
+    <input type="text" th:value="${filter}" name="filter" size="40" placeholder="Введите строку">
+    <input type="submit" value="Получить пользователей"><p>
+</form>
+
+<form method="get" style="text-align:center" th:action="@{/library/users/all}">
+    <input type="submit" value="Отмена"><p>
+</form>
+
+</body>
+</html>
